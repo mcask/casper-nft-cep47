@@ -46,7 +46,7 @@ pub trait CEP47<Storage: ContractStorage>: ContractContext<Storage> {
         data::meta()
     }
 
-    fn set_meta(&self, meta: Meta) -> Result<(), Error> {
+    fn set_meta(&mut self, meta: Meta) -> Result<(), Error> {
         data::set_meta(meta);
         Ok(())
     }
