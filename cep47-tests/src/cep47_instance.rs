@@ -221,6 +221,16 @@ impl CEP47Instance {
     pub fn meta(&self) -> Meta {
         self.0.query_named_key(String::from("meta"))
     }
+
+    pub fn set_meta(&self, sender: AccountHash, meta: Meta) {
+        self.0.call_contract(
+            sender,
+            "set_meta",
+            runtime_args! {
+                "meta" => meta
+            },
+        )
+    }
 }
 
 pub fn key_to_str(key: &Key) -> String {

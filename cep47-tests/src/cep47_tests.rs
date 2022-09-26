@@ -58,6 +58,17 @@ fn test_deploy() {
 }
 
 #[test]
+fn test_meta_update() {
+    let (_, token, owner) = deploy();
+    assert_eq!(token.name(), NAME);
+    assert_eq!(token.symbol(), SYMBOL);
+    assert_eq!(token.meta(), meta::contract_meta());
+    assert_eq!(token.total_supply(), U256::zero());
+    token.set_meta(owner, meta::red_dragon());
+    assert_eq!(token.meta(), meta::red_dragon());
+}
+
+#[test]
 fn test_token_meta() {
     let (env, token, owner) = deploy();
     let user = env.next_user();

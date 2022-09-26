@@ -59,6 +59,14 @@ fn meta() {
 }
 
 #[no_mangle]
+fn set_meta() {
+    let meta = runtime::get_named_arg::<Meta>("meta");
+    NFTToken::default()
+        .set_meta(meta)
+        .unwrap_or_revert();
+}
+
+#[no_mangle]
 fn total_supply() {
     let ret = NFTToken::default().total_supply();
     runtime::ret(CLValue::from_t(ret).unwrap_or_revert());
@@ -251,6 +259,15 @@ fn get_entry_points() -> EntryPoints {
         "meta",
         vec![],
         Meta::cl_type(),
+        EntryPointAccess::Public,
+        EntryPointType::Contract,
+    ));
+    entry_points.add_entry_point(EntryPoint::new(
+        "set_meta",
+        vec![
+            Parameter::new("token_meta", Meta::cl_type()),
+        ],
+        <()>::cl_type(),
         EntryPointAccess::Public,
         EntryPointType::Contract,
     ));
