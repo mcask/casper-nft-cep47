@@ -1,4 +1,5 @@
 prepare:
+	rustup default nightly-2022-10-03 
 	rustup target add wasm32-unknown-unknown
 
 build-contract:
